@@ -89,6 +89,7 @@ Translation.UPDATE_EVENT = 'translationupdate.localization';
  */
 Translation.prototype.setElement = function($element) {
   this.$element = this.$element
+    ? this.$element.add($element)  // Keep the previous elements using the same Translation.
     : $element;
 
   // Automatically update the content if the translation changes.
