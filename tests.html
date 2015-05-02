@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Localization tests</title>
+  <link type="text/css" rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.18.0.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+
+  <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="localization.js"></script>
+
+  <script>
+
+    QUnit.test('Defaults', function(assert) {
+      assert.equal(Localization.getLanguage(), 'ENG', 'Language');
+    });
+
+    QUnit.test('Core functionality', function(assert) {
+      var translation = new Translation('foo', {
+        ENG: 'bar'
+      });
+
+      assert.equal(translation.getText(), 'bar', 'Getter and setter');
+    });
+
+    QUnit.test('Fail-safe mechanisms', function(assert) {
+      assert.throws(
+        function() {
+          Localization.storeTranslation({});
+        },
+        Localization.InvalidTranslationTypeError,
+        'Invalidate all object types other than Translation.'
+      );
+    });
+  </script>
+</body>
+</html>

@@ -7,9 +7,19 @@ var Localization = (function() {
   // Default language. Override via setLanguage whenever needed.
   var _language = 'ENG';
 
+  /**
+   * @param {String} [method]
+   * @constructor
+   */
+  function InvalidTranslationTypeError(method) {
+    this.message = '[' + method + '] Specified object not an instance of Translation.';
+  }
+
+  InvalidTranslationTypeError.prototype = Error.prototype;
+
   // Public interface.
   return {
-
+    InvalidTranslationTypeError: InvalidTranslationTypeError,
 
     /**
      * @param {String} language
@@ -33,7 +43,7 @@ var Localization = (function() {
     storeTranslation: function(translation) {
 
       if ( !(translation instanceof Translation) ) {
-        throw new TypeError('Specified object not the right kind.');
+        throw new InvalidTranslationTypeError('Localization.storeTranslation');
       }
 
       _cache[translation.id] = translation;
@@ -71,4 +81,3 @@ Translation.prototype.updateElement = function() {
 Translation.prototype.getText = function() {
   return this.languages[Localization.getLanguage()];
 };
-
