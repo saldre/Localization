@@ -52,6 +52,9 @@
       Localization.setLanguage('LATIN');
       assert.equal($bar.text(), 'Lorem ipsum', 'Changing selected language on the fly updates content automatically');
 
+      var $dynamic = $('<p/>').translate('dynamic', { LATIN: 'Dolor sit amet.' });
+      assert.equal($dynamic.text(), 'Dolor sit amet.', 'Translate dynamically created content');
+
       $bar.remove();
     });
   </script>

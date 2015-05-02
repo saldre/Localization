@@ -73,8 +73,7 @@ function Translation(id, languages) {
 
   if ( !Localization.getTranslation(id) ) {
     this.id = id;
-    this.$element = $('[data-label="' + id + '"]');
-    this.$element.on(Translation.UPDATE_EVENT, this.updateElement.bind(this));
+    this.setElement($('[data-label="' + id + '"]'));
 
     Localization.storeTranslation(this);
   }
@@ -83,6 +82,17 @@ function Translation(id, languages) {
 }
 
 Translation.UPDATE_EVENT = 'translationupdate.localization';
+
+
+/**
+ * @param {jQuery} $element
+ */
+Translation.prototype.setElement = function($element) {
+  this.$element = $element;
+
+  // Automatically update the content if the translation changes.
+  this.$element.on(Translation.UPDATE_EVENT, this.updateElement.bind(this));
+};
 
 
 /**
@@ -116,4 +126,33 @@ Translation.prototype.updateElement = function() {
  */
 Translation.prototype.getText = function(language) {
   return this.languages[language || Localization.getLanguage()];
+};
+
+
+/**
+ * @param {String} [translationId]
+ * @param {Object} [languages]
+ * @return {jQuery}
+ */
+jQuery.fn.translate = function(translationId, languages) {
+  var $element = this;
+  var translation;
+
+  if ( translationId ) {
+    translation = new Translation(translationId, languages);
+    $element.attr('data-label', translationId);
+  }
+
+  if ( $element.data('label') ) {
+    translationId = $element.data('label');
+    translation = Localization.getTranslation(translationId);
+  }
+  else {
+    throw new Error('Element missing translation data.');
+  }
+
+  translation.setElement($element);
+  $element.trigger(Translation.UPDATE_EVENT);
+
+  return $element;
 };

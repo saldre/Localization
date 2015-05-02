@@ -28,5 +28,23 @@
       LATIN: 'Dolor sit amet.'
     });
   </script>
+
+  <!-- Dynamic content creation -->
+  <script>
+
+    // We can either create a Translation object beforehand...
+    new Translation('dynamic', {
+      ENG: 'This is dynamically created content.',
+      LATIN: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.'
+    });
+
+    $('<p data-label="dynamic">').translate().appendTo('body');
+
+    // ... or we can attach it on the fly:
+    $('<p>').translate('dynamic2', {
+      ENG: 'This is also dynamically created content.',
+      LATIN: 'Laboris nisi ut aliquip ex ea commodo consequat.'
+    }).appendTo('body');
+  </script>
 </body>
 </html>
