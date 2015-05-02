@@ -88,7 +88,8 @@ Translation.UPDATE_EVENT = 'translationupdate.localization';
  * @param {jQuery} $element
  */
 Translation.prototype.setElement = function($element) {
-  this.$element = $element;
+  this.$element = this.$element
+    : $element;
 
   // Automatically update the content if the translation changes.
   this.$element.on(Translation.UPDATE_EVENT, this.updateElement.bind(this));
