@@ -47,6 +47,15 @@ var Localization = (function() {
       }
 
       _cache[translation.id] = translation;
+    },
+
+
+    /**
+     * @param {String} translationId
+     * @return {Translation|undefined}
+     */
+    getTranslation: function(translationId) {
+      return _cache[translationId];
     }
   }
 })();
@@ -58,13 +67,28 @@ var Localization = (function() {
  * @constructor
  */
 function Translation(id, languages) {
-  this.id = id;
-  this.languages = languages;
-  this.$element = $('[data-label="' + id + '"]');
 
-  Localization.storeTranslation(this);
-  this.updateElement();
+  if ( !Localization.getTranslation(id) ) {
+    this.id = id;
+    this.$element = $('[data-label="' + id + '"]');
+    this.$element.on(Translation.UPDATE_EVENT, this.updateElement.bind(this));
+
+    Localization.storeTranslation(this);
+  }
+
+  Localization.getTranslation(id).updateLanguages(languages);
 }
+
+Translation.UPDATE_EVENT = 'translationupdate.localization';
+
+
+/**
+ * @param {Object} languages
+ */
+Translation.prototype.updateLanguages = function(languages) {
+  this.languages = languages;
+  this.$element.trigger(Translation.UPDATE_EVENT);
+};
 
 
 /**

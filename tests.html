@@ -24,6 +24,7 @@
         ENG: 'bar'
       });
 
+      assert.equal(Localization.getTranslation('foo'), translation, 'Retrieving stored Translation object');
       assert.equal(translation.getText(), 'bar', 'Getter and setter');
     });
 
@@ -35,6 +36,18 @@
         Localization.InvalidTranslationTypeError,
         'Invalidate all object types other than Translation.'
       );
+    });
+
+    QUnit.test('Updating translation', function(assert) {
+      var $bar = $('<span data-label="bar"></span>').appendTo('body');
+      var translation = new Translation('bar', {
+        ENG: 'Bar'
+      });
+
+      translation.updateLanguages({ ENG: 'Baz' });
+      assert.equal($bar.text(), 'Baz');
+
+      $bar.remove();
     });
   </script>
 </body>
