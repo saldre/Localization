@@ -26,6 +26,9 @@ var Localization = (function() {
      */
     setLanguage: function(language) {
       _language = language;
+
+      // Let all localized content know that the language has been changed.
+      $('[data-label]').trigger(Translation.UPDATE_EVENT);
     },
 
 
@@ -86,7 +89,15 @@ Translation.UPDATE_EVENT = 'translationupdate.localization';
  * @param {Object} languages
  */
 Translation.prototype.updateLanguages = function(languages) {
-  this.languages = languages;
+
+  if ( !this.languages ) {
+    this.languages = {};
+  }
+
+  $.each(languages, function(language, text) {
+    this.languages[language] = text;
+  }.bind(this));
+
   this.$element.trigger(Translation.UPDATE_EVENT);
 };
 
@@ -100,8 +111,9 @@ Translation.prototype.updateElement = function() {
 
 
 /**
+ * @param {String} language
  * @return {String}
  */
-Translation.prototype.getText = function() {
-  return this.languages[Localization.getLanguage()];
+Translation.prototype.getText = function(language) {
+  return this.languages[language || Localization.getLanguage()];
 };

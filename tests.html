@@ -38,14 +38,19 @@
       );
     });
 
-    QUnit.test('Updating translation', function(assert) {
+    QUnit.test('Updating translations', function(assert) {
       var $bar = $('<span data-label="bar"></span>').appendTo('body');
       var translation = new Translation('bar', {
-        ENG: 'Bar'
+        ENG: 'Bar',
+        LATIN: 'Lorem ipsum'
       });
 
       translation.updateLanguages({ ENG: 'Baz' });
-      assert.equal($bar.text(), 'Baz');
+      assert.equal($bar.text(), 'Baz', 'Updating translation updates DOM node automatically');
+      assert.equal(Localization.getTranslation('bar').getText('LATIN'), 'Lorem ipsum', 'Updating only one language leaves other languages intact');
+
+      Localization.setLanguage('LATIN');
+      assert.equal($bar.text(), 'Lorem ipsum', 'Changing selected language on the fly updates content automatically');
 
       $bar.remove();
     });
