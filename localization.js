@@ -43,7 +43,7 @@ var Localization = (function() {
 
   /**
    * Alias for Localization.getTranslation().
-   * 
+   *
    * @param {String} id
    * @returns {Translation|undefined}
    */
