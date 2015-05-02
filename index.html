@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Localization</title>
+</head>
+<body>
+
+  <h1 data-label="helloWorld"></h1>
+  <p data-label="introduction"></p>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="localization.js"></script>
+  <script>
+
+    // Defaults to ENG if not specified manually.
+    Localization.setLanguage('LATIN');
+
+    // Create translations. The first argument will specify the translation's ID.
+    // The same value will be used to lookup the element via it's data-label
+    // attribute to localize the content.
+    new Translation('helloWorld', {
+      ENG: 'Hello world!',
+      LATIN: 'Lorem ipsum!'
+    });
+    new Translation('introduction', {
+      ENG: 'This here is an example page.',
+      LATIN: 'Dolor sit amet.'
+    });
+  </script>
+</body>
+</html>
