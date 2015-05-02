@@ -39,7 +39,7 @@
     });
 
     QUnit.test('Updating translations', function(assert) {
-      var $bar = $('<span data-label="bar"></span>').appendTo('body');
+      var $bar = $('<span data-translate="bar"></span>').appendTo('body');
       var translation = new Translation('bar', {
         ENG: 'Bar',
         LATIN: 'Lorem ipsum'

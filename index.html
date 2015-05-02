@@ -11,10 +11,10 @@
     <option value="LATIN">Latin</option>
   </select>
 
-  <h1 data-label="helloWorld"></h1>
-  <p data-label="introduction"></p>
+  <h1 data-translate="helloWorld"></h1>
+  <p data-translate="introduction"></p>
   <p>
-    Multiple elements can use the same Translation object: <span data-label="helloWorld"></span>
+    Multiple elements can use the same Translation object: <span data-translate="helloWorld"></span>
   </p>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -25,7 +25,7 @@
     Localization.setLanguage(languageSelection.value);
 
     // Create translations. The first argument will specify the translation's ID.
-    // The same value will be used to lookup the element via it's data-label
+    // The same value will be used to lookup the element via it's data-translate
     // attribute to localize the content.
     new Translation('helloWorld', {
       ENG: 'Hello world!',
@@ -51,7 +51,7 @@
       LATIN: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.'
     });
 
-    $('<p data-label="dynamic">').translate().appendTo('body');
+    $('<p data-translate="dynamic">').translate().appendTo('body');
 
     // ... or we can attach it on the fly:
     $('<p>').translate('dynamic2', {
