@@ -6,6 +6,11 @@
 </head>
 <body>
 
+  <select id="languageSelection" onchange="Localization.setLanguage(this.value);">
+    <option value="ENG">English</option>
+    <option value="LATIN">Latin</option>
+  </select>
+
   <h1 data-label="helloWorld"></h1>
   <p data-label="introduction"></p>
   <p>
@@ -17,7 +22,7 @@
   <script>
 
     // Defaults to ENG if not specified manually.
-    Localization.setLanguage('LATIN');
+    Localization.setLanguage(languageSelection.value);
 
     // Create translations. The first argument will specify the translation's ID.
     // The same value will be used to lookup the element via it's data-label
@@ -29,6 +34,11 @@
     new Translation('introduction', {
       ENG: 'This here is an example page.',
       LATIN: 'Dolor sit amet.'
+    });
+
+    // Updating existing translation.
+    Localization.getTranslation('helloWorld').updateLanguages({
+      ENG: 'Hello bright world!'
     });
   </script>
 
