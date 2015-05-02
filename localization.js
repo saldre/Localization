@@ -42,6 +42,17 @@ var Localization = (function() {
 
 
   /**
+   * Alias for Localization.getTranslation().
+   * 
+   * @param {String} id
+   * @returns {Translation|undefined}
+   */
+  Translation.get = function(id) {
+    return Localization.getTranslation(id);
+  };
+
+
+  /**
    * @param {jQuery} $element
    */
   Translation.prototype.setElement = function($element) {
